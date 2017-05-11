@@ -1,0 +1,40 @@
+<h2>Recipe: <%= @recipe.name() %></h2>
+<hr>
+
+<% if @recipe_ingredients.any? %>
+  <h3> Currently working on: </h3>
+  <ul>
+    <%@recipe_ingredients.each do |ingredient|%>
+      <li><%=ingredient.name%></li>
+    <%end%>
+  </ul>
+
+<% else %>
+    <p>Ingredients has not yet been assigned to a recipe.</p>
+    <p><a href="/ingredients">Add a recipe to the database</a></p>
+<% end %>
+<hr>
+
+<h3>Update recipe information:</h3>
+  <form action="/recipes/<%= @recipe.id() %>" method="post">
+  <input name="_method" value="patch" type="hidden">
+  <% if @unassigned_ingredients.any? %>
+    <label>Add recipes</label><br>
+    <% @unassigned_ingredients.each do |recipe|%>
+      <label>
+        <%="<input type='checkbox' name='recipes_to_add[]' value='#{recipe.id}'> #{recipe.name}"%>
+      </label><br>
+    <% end %>
+  <% end %>
+
+  <% if @recipe_ingredients.any? %>
+    <label>Remove recipe from recipe</label><br>
+    <% @recipe_ingredients.each do |ingredient|%>
+      <label>
+        <%="<input type='checkbox' name='ingredients_to_delete[]' value='#{ingredient.id}'>#{ingredient.name}"%>
+      </label><br>
+    <% end %>
+  <% end %>
+  <button type="submit">Submit</button>
+</form>
+<hr>
