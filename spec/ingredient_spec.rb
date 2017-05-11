@@ -23,4 +23,9 @@ describe(Ingredient) do
     test_ingredient = Ingredient.new({:name => "a".*(51)})
     expect(test_ingredient.save()).to(eq(false))
   end
+
+  it("converts the name to lowercase") do
+    test_ingredient = Ingredient.create({:name => "FINAGLE THE BUFFALO"})
+    expect(test_ingredient.name()).to(eq("finagle the buffalo"))
+  end
 end

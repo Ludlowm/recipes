@@ -23,4 +23,9 @@ describe(Recipe) do
     test_recipe = Recipe.new({:name => "a".*(51)})
     expect(test_recipe.save()).to(eq(false))
   end
+
+  it("converts the name to lowercase and uppercases the first letter") do
+    test_recipe = Recipe.create({:name => "FINAGLE THE BUFFALO"})
+    expect(test_recipe.name()).to(eq("finagle the buffalo"))
+  end
 end
