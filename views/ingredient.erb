@@ -2,7 +2,7 @@
 <hr>
 
 <% if @ingredient_recipes.any? %>
-  <h3> Currently ingredients: </h3>
+  <h3> Current ingredients: </h3>
   <ul>
     <%@ingredient_recipes.each do |recipe|%>
       <li><%=recipe.name%></li>
@@ -10,16 +10,16 @@
   </ul>
 
 <% else %>
-    <p>This recipe has no ingredients</p>
+    <p>This ingredient has no recipes it belongs to</p>
     <p><a href="/recipes">Add an ingredient to database</a></p>
 <% end %>
 <hr>
 
-<h3>Update ingredients:</h3>
-  <form action="/ingredients/<%= @ingredient .id() %>" method="post">
+<h3>Update ingredient to a Recipe:</h3>
+  <form action="/ingredients/<%= @ingredient.id() %>" method="post">
   <input name="_method" value="patch" type="hidden">
-  <% if @unassigned_recipe.any? %>
-    <label>Add recipes</label><br>
+  <% if @unassigned_recipes.any? %>
+    <label>Add a recipe to the ingredient of your choosing:</label><br>
     <% @unassigned_recipes.each do |recipe|%>
       <label>
         <%="<input type='checkbox' name='recipes_to_add[]' value='#{recipe.id}'> #{recipe.name}"%>
@@ -28,10 +28,10 @@
   <% end %>
 
   <% if @ingredient_recipes.any? %>
-    <label>Remove recipe from recipe</label><br>
-    <% @recipe_ingredients.each do |ingredient|%>
+    <label>Remove recipe from ingredients</label><br>
+    <% @ingredient_recipes.each do |recipe|%>
       <label>
-        <%="<input type='checkbox' name='ingredients_to_delete[]' value='#{ingredient.id}'>#{ingredient.name}"%>
+        <%="<input type='checkbox' name='recipes_to_delete[]' value='#{recipe.id}'>#{recipe.name}"%>
       </label><br>
     <% end %>
   <% end %>
