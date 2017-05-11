@@ -13,4 +13,14 @@ describe(Ingredient) do
     test_recipe2 = test_ingredient1.recipes.new(name: "chicken and tomato")
     expect(test_ingredient1.recipes()).to(eq([test_recipe1,test_recipe2]))
   end
+
+  it("validates presence of ingredient name") do
+    test_ingredient = Recipe.new({:name => ""})
+    expect(test_ingredient.save()).to(eq(false))
+  end
+
+  it("ensures the length of ingredient name is at most 50 characters") do
+    test_ingredient = Ingredient.new({:name => "a".*(51)})
+    expect(test_ingredient.save()).to(eq(false))
+  end
 end
